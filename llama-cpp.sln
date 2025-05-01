@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaCppLib", "LlamaCppLib\LlamaCppLib.csproj", "{92E1B971-305F-4526-AB1C-E89B43E21C24}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaCppCli", "LlamaCppCli\LlamaCppCli.csproj", "{F85A71D0-CD44-4CDA-AB68-17D9090C3B1C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LlamaCppWeb", "LlamaCppWeb\LlamaCppWeb.csproj", "{9C1B4C2E-F84D-421E-B924-C5C394288AC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lib-llama-cpp", "lib-llama-cpp\lib-llama-cpp.csproj", "{92E1B971-305F-4526-AB1C-E89B43E21C24}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{22BD050B-B732-4B02-989A-CFBC1A43C440}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cmd-llama-cpp", "cmd-llama-cpp\cmd-llama-cpp.csproj", "{E81B83F7-E240-4481-B6CD-81A3FD3D883C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,18 +24,14 @@ Global
 		{92E1B971-305F-4526-AB1C-E89B43E21C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92E1B971-305F-4526-AB1C-E89B43E21C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92E1B971-305F-4526-AB1C-E89B43E21C24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F85A71D0-CD44-4CDA-AB68-17D9090C3B1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F85A71D0-CD44-4CDA-AB68-17D9090C3B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F85A71D0-CD44-4CDA-AB68-17D9090C3B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F85A71D0-CD44-4CDA-AB68-17D9090C3B1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C1B4C2E-F84D-421E-B924-C5C394288AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C1B4C2E-F84D-421E-B924-C5C394288AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C1B4C2E-F84D-421E-B924-C5C394288AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C1B4C2E-F84D-421E-B924-C5C394288AC5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59159D33-CD95-4225-9EC5-5FF0D4937367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59159D33-CD95-4225-9EC5-5FF0D4937367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59159D33-CD95-4225-9EC5-5FF0D4937367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59159D33-CD95-4225-9EC5-5FF0D4937367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E81B83F7-E240-4481-B6CD-81A3FD3D883C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E81B83F7-E240-4481-B6CD-81A3FD3D883C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E81B83F7-E240-4481-B6CD-81A3FD3D883C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E81B83F7-E240-4481-B6CD-81A3FD3D883C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

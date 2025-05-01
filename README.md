@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### Demo
+## Demo
 
 This shows `LlamaCppWeb.exe` hosting on the left and four `LlamaCppCli.exe` running in parallel on the right.
 
@@ -14,25 +14,46 @@ https://huggingface.co/dranger003/e5-mistral-7b-instruct-GGUF
 
 ![Screenshot 2024-02-09 193353](https://github.com/dranger003/llama.cpp-dotnet/assets/1760549/432ce6d2-7e8b-41f5-861e-3170c368b95a)
 
-### Description
+## Description
 
 High performance minimal C# bindings for llama.cpp including a .NET core library, API server/client and samples.  
 The imported API is kept to a bare minimum as the upstream API is changing quite rapidly.
 
-### Quick Start
+## Quick Start
 
-Build - requires CUDA installed (on Windows use the VS2022 x64 command prompt, on Linux make sure to install cmake and [dotnet](https://learn.microsoft.com/en-us/dotnet/core/install/linux)):
+### Prerequisites
+
+- **.NET 8.0**
+    - Verify installation: `dotnet --version` (should return `8.0.x`)
+    - If not installed, download from [Microsoft's official site](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+
+- **CUDA Toolkit** (required for GPU support)
+    - Verify CUDA driver: `nvidia-smi`
+    - Verify CUDA toolkit: `nvcc --version`
+    - If not installed, download from [NVIDIA's official site](https://developer.nvidia.com/cuda-toolkit-archive)
+
+- **CMake**
+    - Verify installation: `cmake --version`
+    - If not installed, download from [CMake's official site](https://cmake.org/download/)
+
+- **C++ Compiler**
+    - Verify installation `gcc --version`
+    - If not installed, download MinGW from [SourceForge](https://sourceforge.net/projects/mingw/) for windows and `sudo apt update && sudo apt install -y build-essential` for ubuntu
+
+### Build
+
 ```
-git clone --recursive https://github.com/dranger003/llama.cpp-dotnet.git
-cd llama.cpp-dotnet
+git clone --recursive https://github.com/kk-digital/kcg-library-external-llama-cpp.git
+cd kcg-library-external-llama-cpp
 dotnet build -c Release /p:Platform="Any CPU"
 ```
-If you don't need to compile the native libraries, you can also append `/p:NativeLibraries=OFF` to the `dotnet` build command above.
+- If you don't need to compile the native libraries, you can also append `/p:NativeLibraries=OFF` to the `dotnet` build command above.
+- If you have issue for `/llama.cpp/common/log.cpp` while building, try to add `#include <chrono>` at the top of file. [Optional] 
 
-### Basic Sample
+## Basic Sample
 
 ```
-using LlamaCppLib;
+using libLlamaCpp;
 
 // Initialize
 using var llm = new LlmEngine(new EngineOptions { MaxParallel = 8 });
@@ -51,7 +72,7 @@ await foreach (var token in new TokenEnumerator(prompt))
 
 The included CLI samples include more examples of using the library, to process prompts in parallel for example.
 
-### API Endpoints
+## API Endpoints
 ```
 GET /list
 GET /state
@@ -60,7 +81,7 @@ GET /unload
 POST /prompt [LlmPromptRequest]
 ```
 
-### Models
+## Models
 
 You will need a model in GGUF format, the 13B parameters appears to perform well if you have the memory (8-12GB depending on the quantized model).
 If you have a lot of RAM (i.e. 48GB+) you could try a 65B version though it is much slower on the predictions, especially without a GPU.
@@ -71,13 +92,13 @@ A lot of models can be found below.
 - [TheBloke on Hugging Face](https://huggingface.co/TheBloke?sort_models=created&search_models=GGUF#models)
 - [LoneStriker on Hugging Face](https://huggingface.co/LoneStriker?sort_models=created&search_models=GGUF#models)
 
-### Features
+## Features
 
 - [X] Model loading/unloading
 - [x] Parallel decoding
 - [x] Minimal API host/client
 - [X] Support Windows/Linux
 
-### Acknowledgments
+## Acknowledgments
 
 [ggerganov/llama.cpp](https://github.com/ggerganov/llama.cpp) for the LLaMA implementation in C++  

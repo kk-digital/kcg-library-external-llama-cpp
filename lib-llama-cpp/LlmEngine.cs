@@ -2,10 +2,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using static LlamaCppLib.Native;
-using static LlamaCppLib.Interop;
+using static libLlamaCpp.Native;
+using static libLlamaCpp.Interop;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     public class LlmEngine : IDisposable
     {

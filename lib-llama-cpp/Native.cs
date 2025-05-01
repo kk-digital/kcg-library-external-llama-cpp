@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     using llama_model = System.IntPtr;
     using llama_context = System.IntPtr;
@@ -21,9 +21,9 @@ namespace LlamaCppLib
     public static unsafe partial class Native
     {
 #if WINDOWS
-        private const string LibName = $"{nameof(LlamaCppLib)}/llama";
+        private const string LibName = $"lib-llama-cpp/llama";
 #elif LINUX || MACOS
-        private const string LibName = $"{nameof(LlamaCppLib)}/libllama";
+        private const string LibName = $"lib-llama-cpp/libllama";
 #endif
 
         // ggml.h

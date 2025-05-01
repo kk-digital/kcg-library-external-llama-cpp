@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     internal class LlmSequence : IEquatable<LlmSequence>
     {
