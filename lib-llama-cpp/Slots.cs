@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     public class Slots<T> : IEnumerable<T>
     {

@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     public class MultibyteCharAssembler
     {

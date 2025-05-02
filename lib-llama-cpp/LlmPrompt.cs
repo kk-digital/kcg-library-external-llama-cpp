@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     public class LlmMessage
     {

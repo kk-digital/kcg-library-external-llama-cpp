@@ -15,15 +15,31 @@
 		<IsWindows>$([MSBuild]::IsOSPlatform('Windows'))</IsWindows>
 		<IsLinux>$([MSBuild]::IsOSPlatform('Linux'))</IsLinux>
 		<IsOSX>$([MSBuild]::IsOSPlatform('OSX'))</IsOSX>
+		<RootNamespace>libLlamaCpp</RootNamespace>
 	</PropertyGroup>
 
-	<Target Name="CMakePrepareForBuild" BeforeTargets="PrepareForBuild;Clean" Condition="'$(NativeLibraries)'!='OFF'">
-		<PropertyGroup Condition="$(IsWindows)">
-			<Test>$(VsInstallRoot)</Test>
-			<CMakeBin Condition="Exists('$(Test)')">"$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"</CMakeBin>
-			<CMakeBin Condition="!Exists('$(Test)')">"$([System.IO.Path]::GetFullPath('$(VS170COMNTOOLS)\..\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe'))"</CMakeBin>
+	<Target Name="DetectCuda" BeforeTargets="CMakeConfigure">
+		<PropertyGroup>
+			<CudaExists>false</CudaExists>
 		</PropertyGroup>
-		<PropertyGroup Condition="!$(IsWindows)">
+		<Exec Condition="'$(IsWindows)'=='true'"
+			  Command="where nvcc"
+			  IgnoreExitCode="true">
+			<Output TaskParameter="ExitCode" PropertyName="CudaCommandExitCode" />
+		</Exec>
+		<Exec Condition="'$(IsWindows)'!='true'"
+			  Command="which nvcc"
+			  IgnoreExitCode="true">
+			<Output TaskParameter="ExitCode" PropertyName="CudaCommandExitCodeUnix" />
+		</Exec>
+		<PropertyGroup>
+			<CudaExists Condition="$(IsWindows) and $(CudaCommandExitCode)==0">true</CudaExists>
+			<CudaExists Condition="!$(IsWindows) and $(CudaCommandExitCodeUnix)==0">true</CudaExists>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="CMakePrepareForBuild" BeforeTargets="PrepareForBuild;Clean" Condition="'$(NativeLibraries)'!='OFF'">
+		<PropertyGroup>
 			<CMakeBin>cmake</CMakeBin>
 		</PropertyGroup>
 		<PropertyGroup>
@@ -36,10 +52,11 @@
 			<CMakeCompilerFlags Condition="$(IsWindows)">-DCMAKE_CXX_FLAGS="/W0 /EHsc /w /D _MBCS" -DCMAKE_C_FLAGS="/W0 /w"</CMakeCompilerFlags>
 			<CMakeCompilerFlags Condition="!$(IsWindows)">-DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w</CMakeCompilerFlags>
 			<CMakeOptions Condition="$(IsWindows)">-DGGML_CCACHE=OFF</CMakeOptions>
-			<CMakeOptions Condition="!$(IsWindows)"></CMakeOptions>
+			<GGML_CUDA Condition="'$(CudaExists)'=='true'">ON</GGML_CUDA>
+			<GGML_CUDA Condition="'$(CudaExists)'!='true'">OFF</GGML_CUDA>
 		</PropertyGroup>
 		<!-- https://github.com/ggerganov/llama.cpp/pull/1827#issuecomment-1588722643 -->
-		<Exec Command='$(CMakeBin) -DGGML_AVX=ON -DGGML_AVX2=ON -DGGML_CUDA=ON -DLLAMA_ALL_WARNINGS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_SERVER=OFF -DLLAMA_BUILD_TESTS=OFF $(CMakeOptions) -S "$(CMakeProject)" -B "$(CMakeProject)" $(CMakeCompilerFlags)' />
+		<Exec Command='$(CMakeBin) -DGGML_AVX=ON -DGGML_AVX2=ON -DGGML_CUDA=$(GGML_CUDA) -DLLAMA_ALL_WARNINGS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_SERVER=OFF -DLLAMA_BUILD_TESTS=OFF $(CMakeOptions) -S "$(CMakeProject)" -B "$(CMakeProject)" $(CMakeCompilerFlags)' />
 	</Target>
 
 	<Target Name="CMakeBuild" AfterTargets="CMakeConfigure" Condition="'$(NativeLibraries)'!='OFF'">
@@ -56,7 +73,7 @@
 			<LibraryFiles Include="$(CMakeProject)/src/$(LibraryFileExtension)" />
 			<LibraryFiles Include="$(CMakeProject)/ggml/src/$(LibraryFileExtension)" />
 		</ItemGroup>
-		<Copy SourceFiles="@(LibraryFiles)" DestinationFolder="$(SolutionDir)/$(Configuration)/$(MSBuildProjectName)" />
+		<Copy SourceFiles="@(LibraryFiles)" DestinationFolder="$(MSBuildProjectDirectory)/../$(Configuration)/$(MSBuildProjectName)" />
 	</Target>
 
 </Project>

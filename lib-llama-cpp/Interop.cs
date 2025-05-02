@@ -1,7 +1,7 @@
 ﻿using System.Buffers;
 using System.Text;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     using llama_model = System.IntPtr;
     using llama_context = System.IntPtr;

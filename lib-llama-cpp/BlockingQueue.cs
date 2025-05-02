@@ -1,4 +1,4 @@
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     public class BlockingQueue<T>
     {

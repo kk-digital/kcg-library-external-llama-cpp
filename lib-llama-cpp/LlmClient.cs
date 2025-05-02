@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum LlmModelStatus { Unknown, Unloaded, Loaded };

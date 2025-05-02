@@ -1,4 +1,4 @@
-namespace LlamaCppLib
+namespace libLlamaCpp
 {
     internal class UnmanagedResource<T> : IDisposable
     {
